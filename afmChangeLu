@@ -1,0 +1,23 @@
+echo "#### mmunlinkfileset fs1 afmNfsTest "
+mmunlinkfileset fs1 afmNfsTest
+echo
+
+echo "#### mmchfileset fs1 afmNfsTest -p afmMode=lu"
+mmchfileset fs1 afmNfsTest -p afmMode=lu
+echo
+
+echo "#### mmlinkfileset fs1 afmNfsTest -J /ibm/fs1/afmNfsTest"
+ mmlinkfileset fs1 afmNfsTest -J /ibm/fs1/afmNfsTest
+echo
+
+echo "#### mmafmctl fs1 getstate"
+mmafmctl fs1 getstate
+echo
+
+echo "#### mmlsfileset fs1 --afm -L | grep Mode"
+mmlsfileset fs1 --afm -L | grep Mode
+echo
+
+# echo "#### mmchconfig afmCheckRefreshDisable=no -i"
+# echo "#### mmchfileset fs1 afmNfsTest -p afmRefreshOnce=yes"
+# echo "#### mmchfileset fs1 afmNfsTest -p afmReaddirOnce=yes"
