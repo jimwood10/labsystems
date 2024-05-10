@@ -1,0 +1,10 @@
+echo "#### mmunlinkfileset fs1 afmNfsTest"
+mmunlinkfileset fs1 afmNfsTest
+echo
+
+echo "#### mmdelfileset fs1 afmNfsTest -f"
+mmdelfileset fs1 afmNfsTest -f
+echo
+
+echo "#### mmlsfileset fs1"
+mmlsfileset fs1
