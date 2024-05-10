@@ -1,0 +1,15 @@
+echo "#### mmcrfileset fs1 afmNfsTest -p afmTarget=10.51.3.120:/ibm/fs1/afmNfsTest --inode-space=new -p afmMode=read-only"
+mmcrfileset fs1 afmNfsTest -p afmTarget=10.51.3.120:/ibm/fs1/afmNfsTest --inode-space=new -p afmMode=read-only
+echo
+
+echo "#### mmlinkfileset fs1 afmNfsTest -J /ibm/fs1/afmNfsTest"
+mmlinkfileset fs1 afmNfsTest -J /ibm/fs1/afmNfsTest
+echo
+
+echo "#### mmlsfileset fs1"
+mmlsfileset fs1
+echo
+
+echo "#### mmafmctl fs1 getstate"
+mmafmctl fs1 getstate
+echo
