@@ -1,3 +1,7 @@
+Set prompt in ~/.bashrc
+=======================
+PS1="[\u@node1:\w ]# "
+
 Tie to release   (do this before enabling EUS repos)
 ==============
 subscription-manager release --set=8.6
