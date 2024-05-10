@@ -1,3 +1,5 @@
+
+
 Set prompt in ~/.bashrc
 =======================
 PS1="[\u@node1:\w ]# "
