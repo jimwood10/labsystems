@@ -1,0 +1,28 @@
+To install a new node and add it to the cluster.
+================================================
+
+1. Sort out ssh and /etc/hosts - make sure "ssh <node> date" works with no asking for confirmation etc
+
+2. extract package
+./Spectrum_Scale_Data_Management-5.1.6.1-x86_64-Linux-install
+
+3. Install RPMs
+rpm -ivh gpfs.base*.rpm gpfs.gpl*rpm gpfs.license.dm*.rpm gpfs.gskit*rpm gpfs.docs*rpm gpfs.msg*rpm gpfs.adv*rpm gpfs.crypto*rpm
+
+4. Might need pre-reqs to build portability layer
+yum install make cpp gcc gcc-c++ elfutils-libelf-devel kernel-headers kernel-devel
+
+5 build portability layer
+./mmbuildgpl
+
+6. Add node (run this from an existing node)
+mmaddnode -N <node name>
+
+7. check disks are up
+mmlsdisk <fs> | grep  -v -i up
+
+8 check health
+mmhealth node show
+
+9. check logs
+tail -f /var/adm/ras/mmfs.log.latest
