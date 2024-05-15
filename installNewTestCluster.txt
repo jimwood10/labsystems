@@ -1,0 +1,68 @@
+To install a new node and add it to the cluster.
+================================================
+
+1. Sort out ssh and /etc/hosts - make sure "ssh <node> date" works with no asking for confirmation etc
+
+2. extract package
+./Spectrum_Scale_Data_Management-5.1.6.1-x86_64-Linux-install
+
+3. Install RPMs
+rpm -ivh gpfs.base*.rpm gpfs.gpl*rpm gpfs.license.dm*.rpm gpfs.gskit*rpm gpfs.docs*rpm gpfs.msg*rpm gpfs.adv*rpm gpfs.crypto*rpm
+
+4. Create Cluster
+mmcrcluster -N NodeFile
+ cat NodeFile
+jimw1-node-mgr.fyre.ibm.com:quorum-manager:jimw1-node-mgr.fyre.ibm.com
+jimw1-node.fyre.ibm.com:quorum-manager:jimw1-node.fyre.ibm.com
+
+Start Scale
+mmstartup -a
+
+5 Accept license
+mmchlicense server --accept -N jimw1-node.fyre.ibm.com,jimw1-node-mgr.fyre.ibm.com
+
+6.  Create NSD
+mmcrnsd -F StanzaFile.new.nsd
+ head StanzaFile.new.nsd
+
+%nsd:
+  device=/dev/vdb
+  nsd=nsd1
+  servers=jimw1-node-mgr.fyre.ibm.com
+  usage=dataAndMetadata
+  failureGroup=0
+  pool=system
+
+
+7. Create FS
+mmcrfs fs1 -F StanzaFile.new.nsd
+
+8. Mount FS
+mmount all -a
+
+ Node  Daemon node name            IP address    Admin node name             Designation
+-----------------------------------------------------------------------------------------
+   1   jimw-node-mgr.fyre.ibm.com  10.51.13.149  jimw-node-mgr.fyre.ibm.com  quorum-manager-perfmon
+   2   jimw-node.fyre.ibm.com      10.51.23.145  jimw-node.fyre.ibm.com      quorum-manager-perfmon
+   
+Tear down
+=========
+
+1. Unmount the filesystem from all nodes
+mmumount fs1 -a
+
+2. Delete the FS
+mmdelfs fs1 -p
+
+3. Create a list of NSDs
+mmlsnsd | awk '{print $3}' | grep nsd > nsdList
+
+4. Delete all NSDs
+mmdelnsd -F nsdList
+
+5. Shutdown GPFS
+mmshutdown -a
+
+6. Delete all nodes
+mmdelnode -a   
+
