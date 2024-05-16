@@ -1,0 +1,165 @@
+#For s390x: -pg and -fomit-frame-pointer are incompatible
+ifeq ($(ARCH),s390)
+ifdef CONFIG_FUNCTION_TRACER
+ORIG_CFLAGS := $(KBUILD_CFLAGS)
+KBUILD_CFLAGS = $(subst -pg,,$(ORIG_CFLAGS))
+endif
+endif
+
+# @(#)37 1.31 src/avs/fs/mmfs/ts/kernext/gpl-linux/Kbuild, mmfs, avs_rmax511, rmax5112113a 2/24/21 05:56:23
+#It is in the KBuild context when this file is invoked
+include $(CONFIGDIR)/def.mk
+ifneq ($(SUBARCH),$(ARCH))
+  ifeq ($(CROSS_COMPILE),)
+    CROSS_COMPILE := $(call cc-cross-prefix, $(CROSS_PREFIX))
+  endif
+endif
+MODPATH := /$(GPLDIR)/gpl_kernel.tmp.ver
+DUMMY   := $(shell echo $(KERNELRELEASE)> $(MODPATH))
+
+# Only used for Debian, SUBLEVEL is needed to identify
+# different Debian minor version
+# Examples for Debian SUBLEVEL:
+#   LINUX_KERNEL_VERSION of Debian 7.x are all 30200004
+#   SUBLEVEL of Debian 7.8 is 65
+#   SUBLEVEL of Debian 7.6 is 57
+$(KBCFLAGS) += -DSUBLEVEL=$(SUBLEVEL)
+# Only used for Debian, DEB7U2 is needed to differentiate
+# Debian kernel 3.2.65-1+deb7u2 from 3.2.65-1
+ifneq (,$(findstring 3.2.65-1+deb7u2,$(shell uname -v)))
+$(KBCFLAGS) += -DDEB7U2
+endif
+
+# If find -mabi=elfv1, remove -mabi=elfv1 and -mcall-aixdesc
+# from KCFLAGS
+ifneq (,$(findstring -mabi=elfv1,$(KCFLAGS)))
+$(KBCFLAGS) +=  $(filter-out -mabi=elfv1 -mcall-aixdesc, $(KCFLAGS)) -I$(M)
+else
+$(KBCFLAGS) +=  $(KCFLAGS) -I$(M)
+endif
+$(KBLDFLAGS) += $(MMLDFLAGS)
+obj-m := tracedev.o mmfs26.o mmfslinux.o
+tracedev-y := tracelin.o tracedev-ksyms.o ktrccalls.o relaytrc.o
+mmfs26-y := $(MMFSNAME) mmfsmod.o $(KLDGCCNAME)
+mmfslinux-y := cfiles_cust.o $(SS_NAME).o $(KLDGCCNAME)
+
+obj-m += kdump-kern-dummy.o kdump-kern-dwarfs.o
+kdump-kern-dummy-y := kdump-kern.o kdump-stub.o
+# After kernel 4.13, if CONFIG_FORTIFY_SOURCE=y, fortify_panic will be called 
+# by kernel strXXX, memXXX (memset, memcpy...) functions. Use -D__NO_FORTIFY
+# to avoid 'undefined reference' error when build user space application kdump.
+# (no side effect to old kernel (before 4.13) or CONFIG_FORTIFY_SOURCE not 
+# configured in new kernel (4.13+))
+CFLAGS_kdump-kern.o += -DNODWARFS -D__NO_FORTIFY $(KDUMPCFLAGS) -I/usr/include
+CFLAGS_kdump-kern-dwarfs.o += -gdwarf-2 -fno-eliminate-unused-debug-types $(KDUMPCFLAGS) -I/usr/include
+
+# If find -mabi=elfv1, remove it from CFLAGS, -mabi=elfv1 will
+# be imported from kernel Makefile
+ifneq (,$(findstring -mabi=elfv1,$(KCFLAGS)))
+CFLAGS_kdump-kern.o += -mabi=elfv2
+CFLAGS_kdump-kern-dwarfs.o += -mabi=elfv2
+CFLAGS_kdump-stub.o += -mabi=elfv2
+CFLAGS_REMOVE_kdump-kern.o = -mabi=elfv1 -mcall-aixdesc
+CFLAGS_REMOVE_kdump-kern-dwarfs.o = -mabi=elfv1 -mcall-aixdesc
+CFLAGS_REMOVE_kdump-stub.o = -mabi=elfv1 -mcall-aixdesc
+endif
+
+# If find -mskip-rax-setup(kernel version 4.2 or later and GCC version 5.0
+# or later), remove it. kdump is running in userspace, it will use SSE
+# registers, so we must have rax set while calling it.
+ifeq ($(ARCH),x86_64)
+ifneq (,$(findstring -mskip-rax-setup,$(KBUILD_CFLAGS)))
+CFLAGS_REMOVE_kdump-kern.o += -mskip-rax-setup
+CFLAGS_REMOVE_kdump-kern-dwarfs.o += -mskip-rax-setup
+endif
+endif
+
+ifeq ($(ARCH),s390)
+STACK_GUARD_FLAGS := -mstack-size=% -mstack-guard=%
+CFLAGS_REMOVE_kdump-kern.o = $(STACK_GUARD_FLAGS)
+CFLAGS_REMOVE_kdump-stub.o = $(STACK_GUARD_FLAGS)
+CFLAGS_REMOVE_kdump-kern-dwarfs.o = $(STACK_GUARD_FLAGS)
+endif
+
+# If CONFIG_MPROFILE_KERNEL is enabled, _mcount will be linked into the
+# kernel functions, but kdump is a userspace program, so remove -mprofile-kernel
+# while buiding this userspace program.
+ifdef CONFIG_MPROFILE_KERNEL
+ifeq ($(ARCH),powerpc)
+CFLAGS_REMOVE_kdump-kern.o += -mprofile-kernel
+CFLAGS_REMOVE_kdump-kern-dwarfs.o += -mprofile-kernel
+endif
+endif
+
+CFLAGS_kdump-kern.o += -mfunction-return=keep
+$(KBHOSTPROGS) := lxtrace
+HOSTCFLAGS := $(CDEBUGFLAGS)
+# For ASAN builds, STD_LDFLAGS will contain -lasan, which we do not want here
+ifneq (,$(findstring -lasan,$(STD_LDFLAGS)))
+HOSTLDFLAGS += $(IMAKE_LDFLAGS) $(ALL_LIBPATHS)
+else
+HOSTLDFLAGS += $(STD_LDFLAGS) $(IMAKE_LDFLAGS) $(ALL_LIBPATHS)
+endif
+ifeq ($(LOADLIBSVAR),HOSTLDLIBS)
+HOSTLDLIBS_lxtrace += -lrt -ldl $(PTHREADS)
+else
+HOSTLOADLIBES_lxtrace += -lrt -ldl $(PTHREADS)
+endif
+HOSTCFLAGS_lxtrace.o := ${GPFSKCFLAGS} ${SITE_DEFINES} $(LXTRACECFLAGS) -I$(M)
+HOSTCFLAGS_lxtrace_rl.o := ${GPFSKCFLAGS} ${SITE_DEFINES} $(LXTRACECFLAGS) -I$(M)
+HOSTCFLAGS_overwrite.o := ${GPFSKCFLAGS} ${SITE_DEFINES} $(LXTRACECFLAGS) -I$(M)
+lxtrace-objs := lxtrace.o lxtrace_rl.o overwrite.o
+always := $($(KBHOSTPROGS))
+
+# The vmf_insert_pfn_pud function was introduced in kernel 4.10. In 4.18rc6,
+# the return value changed from int to vm_fault_t.  Then in kernel version
+# 5.2rc1, the arguments changed to take struct vm_fault instead of struct
+# vm_area_struct, address and pmd_t.  Normally, we could simply test the kernel
+# version to decide which variant to use, but some of the distros back-ported
+# parts of these incompatible changes without changing any version numbers,
+# making it impossible to determine the signature by looking at the kernel or
+# distro version.  To work around this, we try here to determine the signature
+# dynamically.
+#
+# Variants we detect are:
+#  <function doesn't exist>
+#  int vmf_insert_pfn_pud(struct vm_area_struct *vma, unsigned long addr,
+#                           pud_t *pud, pfn_t pfn, bool write);
+#  vm_fault_t vmf_insert_pfn_pud(struct vm_area_struct *vma, unsigned long addr,
+#                           pud_t *pud, pfn_t pfn, bool write);
+#  int vmf_insert_pfn_pud(struct vm_fault *vmf, pfn_t pfn, bool write);
+#  vm_fault_t vmf_insert_pfn_pud(struct vm_fault *vmf, pfn_t pfn, bool write);
+#  static inline vm_fault_t vmf_insert_pfn_pmd(struct vm_fault *vmf, pfn_t pfn,
+#                                            bool write)
+#
+# The sed expression removes punctuation and duplicate spacing, turning the
+# line into a list of positional arguments we can easily compare against.
+#
+VMF_INSERT_PFN_PUD_SIG := $(strip $(shell sed -n -e '/vmf_insert_pfn_pud.struct/s/[^a-z_][^a-z_]*/ /gp' include/linux/huge_mm.h))
+ifneq (,$(VMF_INSERT_PFN_PUD_SIG))
+ccflags-y += -DHAVE_VMF_INSERT_PFN_PUD
+endif
+ifeq (vm_fault_t,$(word 1,$(VMF_INSERT_PFN_PUD_SIG)))
+ccflags-y += -DHAVE_VM_FAULT_T
+endif
+ifeq (vm_fault_t,$(word 3,$(VMF_INSERT_PFN_PUD_SIG)))
+ccflags-y += -DHAVE_VM_FAULT_T
+endif
+ifeq (vm_area_struct,$(word 4,$(VMF_INSERT_PFN_PUD_SIG)))
+ccflags-y += -DVMF_INSERT_PFN_X_TAKES_VMA
+endif
+
+# Same magic for the detection of the two variants
+# vm_insert_mixed(struct vm_area_struct *vma, unsigned long addr, pfn_t pfn)
+# vs.
+# vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr, pfn_t pfn)
+VMF_INSERT_MIXED_SIG := $(strip $(shell sed -n -e '/vmf_insert_mixed.struct/s/[^a-z_][^a-z_]*/ /gp' include/linux/mm.h))
+ifneq (,$(VMF_INSERT_MIXED_SIG))
+ccflags-y += -DHAVE_VMF_INSERT_MIXED
+endif
+
+# Handle variants in the arguments to the vm fault operation.
+FAULT_SIG := $(strip $(shell sed -n -e '/(\*fault)(.*)/s/[^a-z_][^a-z_]*/ /gp' include/linux/mm.h))
+ifeq (vm_area_struct,$(word 4,$(FAULT_SIG)))
+ccflags-y += -DFAULT_TAKES_VMA_VMF
+endif
