@@ -12,4 +12,4 @@ mmcrfileset $FS $FSET  --inode-space=new
 
 mmlinkfileset $FS $FSET -J $(mmlsfs $FS -T | grep mount | awk '{print $2}')/$FSET
 
-mmlsfileset $FS
+mmlsfileset $FS -L
