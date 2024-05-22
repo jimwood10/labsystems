@@ -1,0 +1,4 @@
+/* mmchpolicy fs1 placement.pol -I test - this is test the policy */
+
+RULE placement SET POOL system where NAME LIKE '%.mp3'
+RULE DEFAULT SET POOL data
