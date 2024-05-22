@@ -10,6 +10,6 @@ read FSET
 
 mmcrfileset $FS $FSET  --inode-space=new
 
-mmlinkfileset $FS $FSET -J $(mmlsfs fs1 -T | grep mount | awk '{print $2}')/$FSET
+mmlinkfileset $FS $FSET -J $(mmlsfs $FS -T | grep mount | awk '{print $2}')/$FSET
 
 mmlsfileset $FS
