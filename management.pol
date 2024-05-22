@@ -1,3 +1,4 @@
+/*  mmapplypolicy fs1 -I test -P XX.pol ... this will do a dry run of policy file XX.pol  */
 RULE move MIGRATE FROM POOL data
         TO POOL system
         WHERE NAME LIKE '%.txt'
