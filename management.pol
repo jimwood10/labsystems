@@ -1,0 +1,3 @@
+RULE move MIGRATE FROM POOL data
+        TO POOL system
+        WHERE NAME LIKE '%.txt'
