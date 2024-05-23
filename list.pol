@@ -1,0 +1,28 @@
+/*
+RULE ['RuleName'] [WHEN TimeBooleanExpression]
+  LIST 'ListName'
+    [EXCLUDE]
+    [DIRECTORIES_PLUS]
+    [FROM POOL 'FromPoolName']
+    [THRESHOLD (HighPercentage[,LowPercentage])]
+    [WEIGHT (WeightExpression)]
+    [FOR FILESET ('FilesetName'[,'FilesetName']...)]
+    [SHOW (['String'] SqlExpression)]
+    [SIZE (numeric-sql-expression)]
+    [ACTION (SqlExpression)]
+    [WHERE SqlExpression]
+*/
+
+RULE 'list'
+        LIST 'fileList'
+        WHERE NAME LIKE '%.mp3'
+
+/*
+mmapplypolicy fs1 -P list2.pol -I defer -f filelist
+
+# cat filelist.list.fileList
+92160 1469071241 0   -- /ibm/fs1/mp3.mp3
+92162 31355509 0   -- /ibm/fs1/mp23.mp3
+
+Format of the file lists (inodenumber, inodegeneration, snapid – path and filename)
+*/
