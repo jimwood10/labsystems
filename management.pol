@@ -1,4 +1,49 @@
-/*  mmapplypolicy fs1 -I test -P XX.pol ... this will do a dry run of policy file XX.pol  */
+/*
+RULE ['RuleName'] [WHEN TimeBooleanExpression]
+  MIGRATE
+    [COMPRESS ({'yes' | 'no' | 'z' | 'lz4' | 'zfast' | 'alphae' | 'alphah'})]
+    [FROM POOL 'FromPoolName']
+    [THRESHOLD (HighPercentage[,LowPercentage[,PremigratePercentage]])]
+    [WEIGHT (WeightExpression)]
+  TO POOL 'ToPoolName'
+    [LIMIT (OccupancyPercentage)]
+    [REPLICATE (DataReplication)]
+    [FOR FILESET ('FilesetName'[,'FilesetName']...)]
+    [SHOW (['String'] SqlExpression)]
+    [SIZE (numeric-sql-expression)]
+    [ACTION (SqlExpression)]
+    [WHERE SqlExpression]
+*/
+
+
 RULE move MIGRATE FROM POOL data
         TO POOL system
         WHERE NAME LIKE '%.txt'
+
+/*
+mmapplypolicy fs1 -I test -P management.pol
+
+[I] 2024-05-23@10:23:56.007 Directory entries scanned: 257.
+[I] Directories scan: 243 files, 14 directories, 0 other objects, 0 'skipped' files and/or errors.
+[I] 2024-05-23@10:23:56.886 Parallel-piped sort and policy evaluation. 257 files scanned.
+[I] 2024-05-23@10:23:56.975 Piped sorting and candidate file choosing. 1 records scanned.
+[I] Summary of Rule Applicability and File Choices:
+ Rule#      Hit_Cnt          KB_Hit          Chosen       KB_Chosen          KB_Ill     Rule
+     0            1               0               1               0               0     RULE 'move' MIGRATE FROM POOL 'data' TO POOL 'system' WHERE(.)
+
+[I] Filesystem objects with no applicable rules: 244.
+
+[I] GPFS Policy Decisions and File Choice Totals:
+ Chose to migrate 0KB: 1 of 1 candidates;
+Predicted Data Pool Utilization in KB and %:
+Pool_Name                   KB_Occupied        KB_Total  Percent_Occupied
+data                             335872        31457280      1.067708333%
+system                          7352320        94371840      7.790798611%
+[I] 2024-05-23@10:23:57.050 Policy execution. 1 files dispatched.
+[I] A total of 1 files have been migrated, deleted or processed by an EXTERNAL EXEC/script;
+        0 'skipped' files and/or errors.
+~ (2490926976) Final_rc fatal:0, warn:0, warn2:0
+
+
+*/
+
