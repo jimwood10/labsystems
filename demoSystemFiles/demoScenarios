@@ -1,0 +1,113 @@
+Demos
+=====
+
+Session 1
+=========
+
+======== 1 ========
+# mmlsdisk fs1
+
+# mmlsnsd
+
+# mmlsnsd -X
+
+
+======== 2 ========
+Change Pool
+
+mmdeldisk fs1 "nsd4;nsd8;nsd12;"
+
+Add this to pool "data"
+
+mmadddisk fs1 -F StanzaFile.PoolData.fs1 -v no
+
+# cat StanzaFile.PoolData.fs1.bkup
+%nsd:
+  device=/dev/vde
+  nsd=nsd4
+  servers=cbsUpgrade-node-mgr.fyre.ibm.com
+  usage=dataOnly
+  failureGroup=0
+  pool=data
+
+%nsd:
+  device=/dev/vde
+  nsd=nsd8
+  servers=cbsUpgrade-node-1.fyre.ibm.com
+  usage=dataOnly
+  failureGroup=1
+  pool=data
+
+%nsd:
+  device=/dev/vde
+  nsd=nsd12
+  servers=cbsUpgrade-node-2.fyre.ibm.com
+  usage=dataOnly
+  failureGroup=2
+  pool=data
+  
+mmlspool fs1 all -L
+  
+Add fileset
+
+mmlsfileset fs1 -L
+
+======== 3 ========
+
+Add user1 and user2
+
+Create some files
+
+Demo how delete works
+~~~~~~~~~~~~~~~~~~~~~
+mmgetacl /ibm/fs1
+
+su - user1
+
+rm /ibm/fs1/acl1.file # denied
+
+mmputacl -i user.acl /ibm/fs1/acl1.file
+
+mmeditacl /ibm/fs1/acl1.file #  add DELETE for user1
+
+su - user1
+
+rm /ibm/fs1/acl1.file # denied
+
+mmeditacl /ibm/fs1 # add DELETE_CHILD for user1
+
+su - user1
+
+rm /ibm/fs1/acl1.file # works
+
+Demo how inherit works
+~~~~~~~~~~~~~~~~~~~~~~
+
+mkdir /ibm/fs1/aclTest
+
+mmputacl -i userInherit.acl /ibm/fs1/aclTest
+
+touch /ibm/fs1/aclTest/userInherit
+
+mmgetacl /ibm/fs1/aclTest/userInherit
+
+======== 4 ========
+
+mmgetstate -aLs
+
+shutdown quorum nodes to demo quorum loss
+
+
+
+
+Session 2
+=========
+
+Session 3
+=========
+
+Session 4
+=========
+
+Session 5
+=========
