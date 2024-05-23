@@ -12,12 +12,16 @@ echo "Where do you want to add them (full path)"
 
 read LOCATION
 
+echo "What prefix?"
+
+read PREFIX
+
 for i in $(seq 1 $NUMBER)
 do
 
 # touch $LOCATION/$i.
 
-fallocate -l $SIZE $LOCATION/$i.$SIZE.file
+fallocate -l $SIZE $LOCATION/$PREFIX$i.file
 
 done
 
