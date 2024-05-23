@@ -1,4 +1,17 @@
-/* mmchpolicy fs1 placement.pol -I test - this is test the policy */
+/*
+RULE ['RuleName']
+  SET POOL 'PoolName'
+     [LIMIT (OccupancyPercentage)]
+     [REPLICATE (DataReplication)]
+     [FOR FILESET ('FilesetName'[,'FilesetName']...)]
+     [ACTION (SqlExpression)]
+     [WHERE SqlExpression]
+*/
 
 RULE placement SET POOL system where NAME LIKE '%.mp3'
 RULE DEFAULT SET POOL data
+
+/*
+policy fs1 placement.pol -I test
+Validated policy 'placement.pol': Parsed 2 policy rules.
+*/
