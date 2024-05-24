@@ -4,6 +4,11 @@ Demos
 Session 1
 =========
 
+No demo
+
+Session 2
+=========
+
 ======== 1 ========
 # mmlsdisk fs1
 
@@ -91,6 +96,15 @@ touch /ibm/fs1/aclTest/userInherit
 
 mmgetacl /ibm/fs1/aclTest/userInherit
 
+Demo how mmeditacl works
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+mmgetacl to show a file without +x
+
+chmod +x
+
+show how acl has changed
+
 ======== 4 ========
 
 mmgetstate -aLs
@@ -98,16 +112,87 @@ mmgetstate -aLs
 shutdown quorum nodes to demo quorum loss
 
 
-
-
-Session 2
-=========
-
 Session 3
 =========
+
+======== 1 ========
+
+Pool commands
+
+======== 2 ========
+
+create and link fileset.
+
+ mmcrfileset fs1 fset1024 --inode-space=new  --inode-limit 1024
+ mmlinkfileset fs1 fset1024 -J /ibm/fs1/fset1024
+ mmlsfileset fs1 fset1024 -iL
+ 
+ Add files to show "No space left on device"
+ 
+ ======== 3 ========
+ 
+ Add user quota
+Exceed soft limit to show Grace
+Exceed hard quota to show “Disk quota exceeded”
+
+ ======== 4 ========
+demo rule order. eg for placement
+
+RULE placement SET POOL system where NAME LIKE '%.mp3'
+RULE placement SET POOL data where NAME LIKE 'jim.%.'
+RULE DEFAULT SET POOL data
+
+touch /ibm/fs1/system.mp3
+touch /ibm/fs1/jim.data
+touch /ibm/fs1/jim.mp3
+
+Demo migrate
+
+Demo list
+
+
 
 Session 4
 =========
 
+No Demo
+
+
 Session 5
 =========
+
+Example 2 - shutdown a node, then show mmhealth cluster show
+
+tail /var/mmfs/gen/mmfslog # on shutdown node
+ssh cbsUpgrade-node-1 tail -20 /var/mmfs/gen/mmfslog # on CM
+
+mmstartup
+mmlsdisk
+mmchdisk fs1 start -a
+
+mmhealth cluster show
+mmdsh -N all /usr/lpp/mmfs/bin/mmsysmoncontrol restart (if required)
+
+
+Example 3 - Just talk about it as already covered above.
+
+Example 4
+
+ifdown eth0 # on a 9.x.x.x , but take down the 10.x.x.x cluster address
+
+mmhealth node show
+
+mmhealth node show gpfs
+
+
+tail -f /var/mmfs/gen/mmfslog on CM to show expel
+
+For stale entries in mmhealth:
+
+mmdsh -N all /usr/lpp/mmfs/bin/mmsysmoncontrol restart
+
+mmhealth cluster show -v
+
+Check all event logs for specific event, eg:
+
+mmdsh -N all "mmhealth node eventlog | grep fs2" 2>/dev/null
