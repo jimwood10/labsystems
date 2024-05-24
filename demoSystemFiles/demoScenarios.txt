@@ -1,13 +1,15 @@
 Demos
 =====
 
+#########
 Session 1
-=========
+#########
 
 No demo
 
+#########
 Session 2
-=========
+#########
 
 ======== 1 ========
 # mmlsdisk fs1
@@ -112,8 +114,9 @@ mmgetstate -aLs
 shutdown quorum nodes to demo quorum loss
 
 
+#########
 Session 3
-=========
+#########
 
 ======== 1 ========
 
@@ -157,16 +160,19 @@ Demo list
 
 
 
+#########
 Session 4
-=========
+#########
 
 No Demo
 
 
+#########
 Session 5
-=========
+#########
 
-Example 2 - shutdown a node, then show mmhealth cluster show
+======== Example 2 ======== 
+shutdown a node, then show mmhealth cluster show
 
 tail /var/mmfs/gen/mmfslog # on shutdown node
 ssh cbsUpgrade-node-1 tail -20 /var/mmfs/gen/mmfslog # on CM
@@ -179,9 +185,11 @@ mmhealth cluster show
 mmdsh -N all /usr/lpp/mmfs/bin/mmsysmoncontrol restart (if required)
 
 
-Example 3 - Just talk about it as already covered above.
+======== Example 3 ======== 
 
-Example 4
+Just talk about it as already covered above.
+
+======== Example 4 ======== 
 
 ifdown eth0 # on a 9.x.x.x , but take down the 10.x.x.x cluster address
 
