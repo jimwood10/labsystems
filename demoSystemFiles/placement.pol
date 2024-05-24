@@ -12,6 +12,6 @@ RULE placement SET POOL system where NAME LIKE '%.mp3'
 RULE DEFAULT SET POOL data
 
 /*
-policy fs1 placement.pol -I test
+mmchpolicy fs1 placement.pol -I test
 Validated policy 'placement.pol': Parsed 2 policy rules.
 */
