@@ -16,6 +16,8 @@ RULE ['RuleName'] [WHEN TimeBooleanExpression]
 RULE 'list'
         LIST 'fileList'
         WHERE NAME LIKE '%.mp3'
+        AND
+        DAYS(CURRENT_TIMESTAMP) - DAYS(ACCESS_TIME) > 2
 
 /*
 mmapplypolicy fs1 -P list2.pol -I defer -f filelist
