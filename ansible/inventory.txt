@@ -1,4 +1,4 @@
 #hosts
-DemoLocal-node-mgr.fyre.ibm.com user=root
-DemoLocal-node-1.fyre.ibm.com user=root
-DemoLocal-node-2.fyre.ibm.com user=root
+DemoLocal-node-mgr.fyre.ibm.com 
+DemoLocal-node-1.fyre.ibm.com 
+DemoLocal-node-2.fyre.ibm.com 
