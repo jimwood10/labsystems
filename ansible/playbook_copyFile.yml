@@ -1,0 +1,10 @@
+- hosts: all
+  tasks:
+  - name: Copy a new "hosts" file into place, backing up the original if it differs from the copied version
+    copy:
+      src: /tmp/hosts
+      dest: /etc/hosts
+      owner: root
+      group: root
+      mode: '0644'
+      backup: yes
