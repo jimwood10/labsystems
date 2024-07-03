@@ -1,0 +1,4 @@
+- hosts: all
+  tasks:
+  - name : Install mt-st package
+    yum: name=mt-st state=present update_cache=true
