@@ -1,0 +1,11 @@
+- hosts: all
+  tasks:
+  - name : Install  package
+    yum:
+      name: "{{ package }}"
+      state: present
+      update_cache: true
+  become: true
+
+# example run command:
+# ansible-playbook -e "package=Judy" yumInstallPackageXX_playbook.yml -i inventory.txt
