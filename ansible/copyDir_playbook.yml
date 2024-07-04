@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+  - name: Copy a git dir to home dir
+    copy:
+      src: /ibm/fs1/git/labsystems
+      dest: /root
