@@ -2,3 +2,4 @@
 DemoLocal-node-mgr.fyre.ibm.com 
 DemoLocal-node-1.fyre.ibm.com 
 DemoLocal-node-2.fyre.ibm.com 
+DemoRemote-node-mgr.fyre.ibm.com
