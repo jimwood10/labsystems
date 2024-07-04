@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+  - name: Create a user 'user1' with a home directory
+    user:
+      name: user1
+      create_home: yes
+      password: $6$vZE.oEh5sZCTpRsJ$mAhlklqa1HdBGEh7McJKf2c4kN0BSzEXPAJrVAXgcIFHtXBueYFsvormBv1J13EXwBwHbT6N4ka2WNe9En5lm/
+      # this hashed password is 'passw0rd'
