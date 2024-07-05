@@ -1,0 +1,14 @@
+- hosts: all
+
+  tasks:
+  - name: checking updates
+    yum:
+      name: '*'
+      security: yes
+      state: latest
+    register: yum_output
+    become: true
+
+  - name: show that yum output
+    debug:
+      var: yum_output
