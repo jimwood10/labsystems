@@ -22,3 +22,4 @@ special:everyone@:r-x-:allow
  (-)DELETE    (-)DELETE_CHILD (-)CHOWN        (X)EXEC/SEARCH (-)WRITE_ACL (-)WRITE_ATTR (-)WRITE_NAMED
 
 
+
