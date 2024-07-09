@@ -1,0 +1,34 @@
+%nsd:
+  device=/dev/vdb
+  nsd=nsd1
+  servers=DemoRemote-node-mgr.fyre.ibm.com
+  usage=dataAndMetadata
+  failureGroup=-1
+  pool=system
+
+
+%nsd:
+  device=/dev/vdc
+  nsd=nsd2
+  servers=DemoRemote-node-mgr.fyre.ibm.com
+  usage=dataAndMetadata
+  failureGroup=-1
+  pool=system
+
+
+%nsd:
+  device=/dev/vdd
+  nsd=nsd3
+  servers=DemoRemote-node-mgr.fyre.ibm.com
+  usage=dataAndMetadata
+  failureGroup=-1
+  pool=system
+
+
+%nsd:
+  device=/dev/vde
+  nsd=nsd4
+  servers=DemoRemote-node-mgr.fyre.ibm.com
+  usage=dataAndMetadata
+  failureGroup=-1
+  pool=system
