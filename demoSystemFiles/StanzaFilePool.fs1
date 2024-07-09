@@ -1,0 +1,7 @@
+%nsd:
+  device=/dev/vde
+  nsd=nsd4
+  servers=DemoRemote-node-mgr.fyre.ibm.com
+  usage=dataOnly
+  failureGroup=-1
+  pool=data
