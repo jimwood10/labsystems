@@ -1,0 +1,9 @@
+sudo yum install -y nfs-utils portmap
+sudo systemctl enable nfs-server.service rpcbind.service
+sudo systemctl start nfs-server.service rpcbind.service
+
+cat /etc/exports
+/ibm/fs1 *(rw,nohide,insecure,no_subtree_check,sync,no_root_squash)
+
+exportfs -ra
+showmount -e localhost
