@@ -5,13 +5,8 @@ Demos
 Session 1
 #########
 
-No demo
+======== 1.1 - Disks and NSDs========
 
-#########
-Session 2
-#########
-
-======== 1 ========
 # mmlsdisk fs1
 
 # mmlsnsd
@@ -19,20 +14,19 @@ Session 2
 # mmlsnsd -X
 
 
-======== 2 ========
-Change Pool
+======== 1.2 Pools & Filesets ========
 
+Change Pool
 mmdeldisk fs1 "nsd4;nsd8;nsd12;"
 
 Add this to pool "data"
-
 mmadddisk fs1 -F StanzaFile.PoolData.fs1 -v no
 
-# cat StanzaFile.PoolData.fs1.bkup
+# cat StanzaFile.PoolData.fs1
 %nsd:
   device=/dev/vde
   nsd=nsd4
-  servers=cbsUpgrade-node-mgr.fyre.ibm.com
+  servers=DemoLocal-node-mgr.fyre.ibm.com
   usage=dataOnly
   failureGroup=0
   pool=data
@@ -40,7 +34,7 @@ mmadddisk fs1 -F StanzaFile.PoolData.fs1 -v no
 %nsd:
   device=/dev/vde
   nsd=nsd8
-  servers=cbsUpgrade-node-1.fyre.ibm.com
+  servers=DemoLocal-node-1.fyre.ibm.com
   usage=dataOnly
   failureGroup=1
   pool=data
@@ -48,7 +42,7 @@ mmadddisk fs1 -F StanzaFile.PoolData.fs1 -v no
 %nsd:
   device=/dev/vde
   nsd=nsd12
-  servers=cbsUpgrade-node-2.fyre.ibm.com
+  servers=DemoLocal-node-2.fyre.ibm.com
   usage=dataOnly
   failureGroup=2
   pool=data
@@ -56,10 +50,51 @@ mmadddisk fs1 -F StanzaFile.PoolData.fs1 -v no
 mmlspool fs1 all -L
   
 Add fileset
+mmcrfileset $FS $FSET  --inode-space=new
 
 mmlsfileset fs1 -L
 
-======== 3 ========
+
+#########
+Session 2
+#########
+
+======== 2.1 Pools  ========
+demo of storage pool commands from the slides
+
+======== 2.2 Filesets ========
+
+create and link fileset.
+
+ mmcrfileset fs1 fset1024 --inode-space=new  --inode-limit 1024
+ mmlinkfileset fs1 fset1024 -J /ibm/fs1/fset1024
+ mmlsfileset fs1 fset1024 -iL
+ 
+ Add files to show "No space left on device"
+
+ ======== 2.3  Snapshots ========
+ 
+ Use stopQuiesce to show quiesce problems (also use mmlsnode -N waiters)
+( stopQuiesce script is available at https://github.com/jimwood10/labsystems/ ) 
+
+
+#########
+Session 3
+#########
+
+======== 3.1 Quorum ========
+Shutdown node - show mmgetstate and mmdslogs
+
+======== 3.2 Quota ========
+Add user quota
+mmchfs fs1 -Q yes
+mmedquota -u user1
+mmcheckquota fs1
+
+Exceed soft limit to show Grace
+Exceed hard quota to show “Disk quota exceeded”
+
+======== 3.3 ACLs ========
 
 Add user1 and user2
 
@@ -107,43 +142,9 @@ chmod +x
 
 show how acl has changed
 
-======== 4 ========
-
-mmgetstate -aLs
-
-shutdown quorum nodes to demo quorum loss
 
 
-#########
-Session 3
-#########
-
-======== 1 ========
-
-Pool commands
-
-======== 2 ========
-
-create and link fileset.
-
- mmcrfileset fs1 fset1024 --inode-space=new  --inode-limit 1024
- mmlinkfileset fs1 fset1024 -J /ibm/fs1/fset1024
- mmlsfileset fs1 fset1024 -iL
- 
- Add files to show "No space left on device"
- 
- 
- ======== 3 ========
- 
- Use stopQuiesce to show quiesce problems (also use mmlsnode -N waiters)
- 
- ======== 4 ========
- 
- Add user quota
-Exceed soft limit to show Grace
-Exceed hard quota to show “Disk quota exceeded”
-
- ======== 5 ========
+======== 3.4 Policies ========
 demo rule order. eg for placement
 
 RULE placement SET POOL system where NAME LIKE '%.mp3'
@@ -158,17 +159,11 @@ Demo migrate
 
 Demo list
 
+see https://github.com/jimwood10/labsystems/ for sample policies (the policy files include comments to show how to run)
 
 
 #########
 Session 4
-#########
-
-No Demo
-
-
-#########
-Session 5
 #########
 
 ======== Example 2 ======== 
