@@ -56,9 +56,9 @@ https://access.redhat.com/articles/6393361?extIdCarryOver=true&sc_cid=701f200000
 
 Add user
 ========
-useradd pareshc
-passwd pareshc
-usermod -aG wheel pareshc
+useradd user1
+passwd user1
+usermod -aG wheel user1
 
 
 Install GUI
