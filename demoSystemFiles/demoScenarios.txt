@@ -1,6 +1,10 @@
 Demos
 =====
 
+These demos were performed on a 3-node Fyre cluster, each node with 4 x local disks for GPFS (shared-nothing).
+Some scripts to save time can be found by cloning a git repo:
+git clone https://github.com/jimwood10/labsystems/
+
 #########
 Session 1
 #########
