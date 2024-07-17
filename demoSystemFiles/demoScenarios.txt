@@ -207,4 +207,4 @@ mmdsh -N all "mmhealth node eventlog | grep fs2" 2>/dev/null
 
 
 
-mmdsh -N cbsUpgrade-node-2.fyre.ibm.com 'mmfsadm test quiesce fs1 daemon 33' & mmdsh -N cbsUpgrade-node-2.fyre.ibm.com 'mmfsadm test quiesce fs1 kernel 43210' ; mmchattr --set-attr foo fs1; mmfsadm test quiesce fs1kernel 0' & mmcrsnapshot fs1 fooSnap
+mmdsh -N DemoLocal-node-2.fyre.ibm.com 'mmfsadm test quiesce fs1 daemon 33' & mmdsh -N DemoLocal-node-2.fyre.ibm.com 'mmfsadm test quiesce fs1 kernel 43210' ; mmchattr --set-attr foo fs1; mmfsadm test quiesce fs1kernel 0' & mmcrsnapshot fs1 fooSnap
