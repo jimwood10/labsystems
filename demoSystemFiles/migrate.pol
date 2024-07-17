@@ -21,7 +21,7 @@ RULE move MIGRATE FROM POOL data
         WHERE NAME LIKE '%.txt'
 
 /*
-mmapplypolicy fs1 -I test -P management.pol
+mmapplypolicy fs1 -I test -P migrate.pol
 
 [I] 2024-05-23@10:23:56.007 Directory entries scanned: 257.
 [I] Directories scan: 243 files, 14 directories, 0 other objects, 0 'skipped' files and/or errors.
