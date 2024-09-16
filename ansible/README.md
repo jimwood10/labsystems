@@ -6,3 +6,6 @@ A quick check of the hosts file can be:
 
 To run a playbook, eg:
    ansible-playbook playbook_yum.yml -i inventory.txt [--check]
+
+May need to install ansible:
+   yum install ansible-core
