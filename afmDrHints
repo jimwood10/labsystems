@@ -1,0 +1,28 @@
+AFM DR
+
+https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=scale-afm-based-disaster-recovery
+
+mmchconfig afmEnableADR=yes -i
+mmchnode -N <node> --gateway
+
+
+On Primary
+mmcrfileset fs1 primary -p afmMode=primary --inode-space=new -p afmTarget=nfs://afmSecondary1-node-mgr/ibm/fs1/secondary -p afmRPO=720
+
+Primary Id (afmPrimaryId) 18169971160201568150-AD04330A66E82090-1
+
+On Secondary
+mmcrfileset fs1 secondary -p afmMode=secondary -p afmPrimaryID=18169971160201568150-AD04330A66E82090-1 --inode-space new
+mmlinkfileset fs1 secondary -J /ibm/fs1/secondary
+(to get the ID mmafmctl fs1 getPrimaryId -j adfDrPrimary
+
+Export filesets via NFS
+# cat /etc/exports
+/ibm/fs1/secondary 10.51.4.173/19(rw,nohide,insecure,no_subtree_check,sync,no_root_squash,fsid=101)
+
+dnf install nfs-utils
+systemctl enable nfs-server
+systemctl start nfs-server
+
+On Primary
+mmlinkfileset fs1 primary -J /ibm/fs1/primary
