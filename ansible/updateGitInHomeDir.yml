@@ -9,3 +9,6 @@
     synchronize:
       src: /ibm/fs1/git/labsystems
       dest: /root
+
+  - name: Rename /etc/issue.net to stop the ssh banner
+    command: mv /etc/issue.net /etc/issue.net.bkup
