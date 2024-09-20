@@ -4,7 +4,7 @@
     file:
       path: /root/labsystems
       state: absent
-
+      
   - name: Copy git dir to home dir
     synchronize:
       src: /ibm/fs1/git/labsystems
