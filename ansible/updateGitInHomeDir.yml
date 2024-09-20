@@ -9,5 +9,3 @@
     synchronize:
       src: /ibm/fs1/git/labsystems
       dest: /root
-
- 
