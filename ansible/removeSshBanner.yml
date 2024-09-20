@@ -1,8 +1,9 @@
-- name: Stat /etc/issue.net to stop the ssh banner
-  stat:
-    path: /etc/issue.net
-  register: issue_exists 
+- hosts: all
+  - name: Stat /etc/issue.net to stop the ssh banner
+    stat:
+      path: /etc/issue.net
+    register: issue_exists 
     
-- name: rename /etc/issue.net to stop the ssh banner
-  command: mv /etc/issue.net /etc/issue.net.bkup
-  when: issue_exists.stat.exists == True
+  - name: rename /etc/issue.net to stop the ssh banner
+    command: mv /etc/issue.net /etc/issue.net.bkup
+    when: issue_exists.stat.exists == True
