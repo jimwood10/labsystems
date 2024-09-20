@@ -1,0 +1,14 @@
+- name: Ping
+  import_playbook: ping.yml
+
+- name: remove ssh banner
+  import_playbook: removeSshBanner.yml
+
+- name: create users
+  import_playbook: createUser_playbook.yml
+
+- name: copy git to home dir
+  import_playbook: updateGitInHomeDir.yml
+
+- name: install security updates
+  import_playbook: yumUpdateSecurityOnly.yml
