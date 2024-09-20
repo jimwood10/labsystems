@@ -1,7 +1,7 @@
  - name: Stat /etc/issue.net to stop the ssh banner
    stat:
-    path: /etc/issue.net
-    register: issue_exists 
+   path: /etc/issue.net
+   register: issue_exists 
     
   - name: rename /etc/issue.net to stop the ssh banner
     command: mv /etc/issue.net /etc/issue.net.bkup
