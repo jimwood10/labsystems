@@ -1,9 +1,13 @@
 - hosts: all
-  - name: Stat /etc/issue.net to stop the ssh banner
-    stat:
+#  - name: Stat /etc/issue.net to stop the ssh banner
+ #   stat:
+  #    path: /etc/issue.net
+   # register: issue_exists
+  - name: Get stats of a file
+    ansible.builtin.stat:
       path: /etc/issue.net
-    register: issue_exists 
+    register: st
     
   - name: rename /etc/issue.net to stop the ssh banner
     command: mv /etc/issue.net /etc/issue.net.bkup
-    when: issue_exists.stat.exists == True
+    when: st.stat.exists == True
