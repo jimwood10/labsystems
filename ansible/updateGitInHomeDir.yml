@@ -1,0 +1,13 @@
+- hosts: all
+  tasks:
+  - name: remove git files from home dir
+    file:
+      path: /root/labsystems
+      state: absent
+
+  - name: Copy git dir to home dir
+    synchronize:
+      src: /ibm/fs1/git/labsystems
+      dest: /root
+
+ 
