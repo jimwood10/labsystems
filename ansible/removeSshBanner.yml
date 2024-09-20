@@ -1,6 +1,6 @@
  - name: Stat /etc/issue.net to stop the ssh banner
-    stat:
-      path: /etc/issue.net
+   stat:
+    path: /etc/issue.net
     register: issue_exists 
     
   - name: rename /etc/issue.net to stop the ssh banner
