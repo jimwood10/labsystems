@@ -1,8 +1,5 @@
 - hosts: all
-#  - name: Stat /etc/issue.net to stop the ssh banner
- #   stat:
-  #    path: /etc/issue.net
-   # register: issue_exists
+  tasks:
   - name: Get stats of a file
     ansible.builtin.stat:
       path: /etc/issue.net
