@@ -1,0 +1,13 @@
+n=0
+
+while true
+ do
+  if test -r /ibm/fs1/primary/primaryTest
+  then echo $n; n=$((n+1))
+
+  else
+  echo "access failed"
+  fi
+
+sleep 2
+done
