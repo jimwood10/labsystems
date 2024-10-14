@@ -2,7 +2,7 @@ n=0
 
 while true
  do
-  if test -r /ibm/fs1/primary/primaryTest
+  if test -r /ibm/fs1/test
   then echo "Access OK $n"
   n=$((n+1))
 
