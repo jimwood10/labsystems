@@ -3,10 +3,12 @@ n=0
 while true
  do
   if test -r /ibm/fs1/primary/primaryTest
-  then echo $n; n=$((n+1))
+  then echo "Access OK $n"
+  n=$((n+1))
 
   else
-  echo "access failed"
+  echo "Access failed: $n"
+  n=$((n+1))
   fi
 
 sleep 2
