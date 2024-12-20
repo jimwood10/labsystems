@@ -66,3 +66,17 @@ mmshutdown -a
 6. Delete all nodes
 mmdelnode -a   
 
+
+Or use the install kit. eg
+==========================
+
+./spectrumscale node add -q -m -a -n -g jimw1  # define nodes in cluster
+./spectrumscale setup -s 10.51.11.223 # define inststaller node
+./spectrumscale callhome disable
+./spectrumscale install -pr
+./spectrumscale install
+
+./spectrumscale nsd add  -p jimw1-node-mgr.fyre.ibm.com /dev/vdb /dev/vdc /dev/vdc /dev/vde -fs fs1 #  add disks, create FS
+./spectrumscale install -pr
+./spectrumscale install
+
