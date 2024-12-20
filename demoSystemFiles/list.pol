@@ -27,4 +27,27 @@ mmapplypolicy fs1 -P list.pol -I defer -f filelist
 92162 31355509 0   -- /ibm/fs1/mp23.mp3
 
 Format of the file lists (inodenumber, inodegeneration, snapid – path and filename)
+
+    # Output from gpfs policy is a list of records in the
+    # following format:
+    #
+    # InodeNum GenNum SnapId ShowAttrs -- /FullPathToFile'\n'
+    #
+    # NOTE: the ShowAttrs and FullPathToFile are encoded using RFC398 URI percent encoding
+    # which specifies that all characters except the "unreserved" characters in the set
+    # a-zA-Z0-9-_.~ are encoded as %XX where XX comprises two hex digits. The policy rules
+    # file that we generate also adds ' ' to the "unreserved" characters to make parsing
+    # the output file easier.
+    #
+    # where
+    #   InodeNum is a 64-bit inode number
+    #   GenNum is a 64-bit file generation number
+    #   SnapId is a 64-bit snapshot id
+    #   ShowAttrs are the file attributes specified by the SHOW clause
+    #      => USER_ID GROUP_ID FILE_SIZE CREATION_TIME CHANGE_TIME MODIFICATION_TIME ACCESS_TIME
+    #   -- is a field separator
+    #   /FullPathToFile is file name that has been percent encoded
+    #   '\n' is the record separator.
+    #
+
 */
