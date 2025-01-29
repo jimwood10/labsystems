@@ -13,3 +13,8 @@ echo
 echo "#### mmafmctl fs1 getstate"
 mmafmctl fs1 getstate
 echo
+
+# example of prefetch
+# mmafmctl fs1 prefetch -j afmNfsTest --directory /ibm/fs1/afmNfsTest  --enable-failed-file-list
+
+# using just "mmafmctl fs1 prefetch -j afmNfsTest" only displays stats
