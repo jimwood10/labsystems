@@ -95,3 +95,14 @@ uncomment options in /etc/tigervnc/vncserver-config-defaults
 rm /etc/systemd/system/vncserver@.service
 
 systemctl enable --now vncserver@:user-number
+
+Change IP Address of node
+=========================
+1: update /etc/hosts
+
+2: create a file such as:
+cat nodeIpUpdateFile
+rh810 --daemon-interface=rh810.localdomain --admin-interface=rh810.localdomain
+
+3: run:
+mmchnode --spec-file nodeIpUpdateFile --force
