@@ -1,0 +1,19 @@
+export FYRE_USER_ID=jim_wood
+export FYRE_API_KEY=yfTnTRA8c3Fz1AYyR7Tw5hmPsalDHNNYfGMvuLW7C
+
+# cd /data5/fyre/ansible
+# ./setupscale.py -clustername jimWces1 -release 5.1.2.1 -features protocols --cesips 10.21.23.100 10.21.23.101
+#
+#  CESIPs have to be reserved here https://ibm.ent.box.com/notes/841979118740?s=esuzj4tu27fsbzlit3b967izwukemhdk
+#
+#[scaleservice1][/gsa/pokgsa/home/n/f/nfalk]> /data5/fyre/ansible/setupscale.py -?
+# usage: setupscale.py [-h] [-clustername CLUSTERNAME] [-release RELEASE]
+#                     [-features {protocols,basic,afm,afmdr}]
+#                     [--cesips CESIPS [CESIPS ...]] [--fal] [--auth] [--enc]
+#                     [--afmobj] [--hdfs] [--file FILE]
+#                     [--homecluster HOMECLUSTER] [--cachecluster CACHECLUSTER]
+#                     [--parallel] [--skipinstall]
+#
+#./setupscale.py -clustername jimw1 -release 5.1.8.2 -features basic
+ /root/git/fyre/ansible/setupscale.py -clustername storage -release 5.1.9.7 -features basic
+# 10.21.23.234 & 10.21.23.235
