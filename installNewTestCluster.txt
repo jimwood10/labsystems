@@ -76,7 +76,7 @@ Or use the install kit. eg
 ./spectrumscale install -pr
 ./spectrumscale install
 
-./spectrumscale nsd add  -p jimw1-node-mgr.fyre.ibm.com /dev/vdb /dev/vdc /dev/vdc /dev/vde -fs fs1 #  add disks, create FS
+./spectrumscale nsd add  -p jimw1-node-mgr.fyre.ibm.com /dev/vdb /dev/vdc /dev/vdd /dev/vde -fs fs1 #  add disks, create FS
 ./spectrumscale install -pr
 ./spectrumscale install
 
