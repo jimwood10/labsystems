@@ -106,3 +106,8 @@ rh810 --daemon-interface=rh810.localdomain --admin-interface=rh810.localdomain
 
 3: run:
 mmchnode --spec-file nodeIpUpdateFile --force
+
+Stop banner
+===========
+sed -i 's/Banner \/etc\/issue.net/#Banner \/etc\/issue.net/g' /etc/ssh/sshd_config
+systemctl restart sshd
