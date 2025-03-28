@@ -112,7 +112,7 @@ su - user1
 
 rm /ibm/fs1/acl1.file # denied
 
-mmputacl -i user.acl /ibm/fs1/acl1.file
+mmputacl -i userFile.acl /ibm/fs1/acl1.file
 
 mmeditacl /ibm/fs1/acl1.file #  add DELETE for user1
 
