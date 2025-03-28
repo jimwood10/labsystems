@@ -1,0 +1,14 @@
+echo "##################################################################################################"
+echo "This script will install a fyre cluster according to the following settings from ./fyre_config.ini"
+echo "##################################################################################################"
+
+cat fyre_config.ini
+
+echo
+
+read -p "Are you sure? (\"y\" to continue)" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  ./client.py --file ./fyre_config.ini
+fi
