@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+  - name: Set timezone to Europe/London
+    become: true
+    community.general.timezone:
+      name: Europe/London
