@@ -191,6 +191,7 @@ Just talk about it as already covered above.
 ======== Example 4 ======== 
 
 ifdown eth0 # on a 9.x.x.x , but take down the 10.x.x.x cluster address
+or ip link set eth0 down
 
 mmhealth node show
 
