@@ -111,3 +111,7 @@ Stop banner
 ===========
 sed -i 's/Banner \/etc\/issue.net/#Banner \/etc\/issue.net/g' /etc/ssh/sshd_config
 systemctl restart sshd
+
+Change time to UK
+=================
+mmdsh -N all "timedatectl set-timezone Europe/London"
