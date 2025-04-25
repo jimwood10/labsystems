@@ -12,3 +12,6 @@
 
 - name: install security updates
   import_playbook: yumUpdateSecurityOnly.yml
+  
+- name: set Timezone
+  import_playbook: setTimezone.yml
