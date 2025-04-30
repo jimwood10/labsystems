@@ -1,6 +1,6 @@
 # update /etc/hosts with new ip address
 
-oldIP=$(grep rh810.localdomain /etc/hosts | awk '{print $1}')
+oldIP=$(grep $(hostname) /etc/hosts | awk '{print $1}')
 newIP=$(hostname -I | awk '{print $1}')
 sed -i "s/$oldIP/$newIP/" /etc/hosts
 
