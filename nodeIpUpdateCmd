@@ -4,6 +4,8 @@ oldIP=$(grep $(hostname) /etc/hosts | awk '{print $1}')
 newIP=$(hostname -I | awk '{print $1}')
 sed -i "s/$oldIP/$newIP/" /etc/hosts
 
+echo "$(hostname -s) --daemon-interface=$(hostname) --admin-interface=$(hostname)" > nodeIpUpdateFile
+
 mmshutdown && sleep 20
 mmchnode --spec-file nodeIpUpdateFile --force
 mmstartup && sleep 20 && mmgetstate
