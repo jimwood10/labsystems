@@ -1,0 +1,23 @@
+# Update Hosts
+oldCesIP=$(grep ces /etc/hosts | awk '{print $1}')
+newCesIP=$(grep $(hostname) /etc/hosts | awk '{print $1}' | awk -F. '$NF="99"' OFS=".")
+sed -i "s/$oldCesIP/$newCesIP/" /etc/hosts
+echo "/etc/hosts updated with new IP address"
+
+# Update ctdb
+mmccr fget smb.ctdb.nodes /tmp/smb.ctdb.nodes
+hostname -I | awk '{print $1}' > /tmp/smb.ctdb.nodes
+mmccr fput smb.ctdb.nodes /tmp/smb.ctdb.nodes
+echo "ctdb updated with new IP address"
+
+mmces service stop SMB
+mmces service start SMB
+
+#  Update CES address list
+mmces address remove --ces-ip $(mmces address list | tail -1 | awk '{print $1}')
+echo "Removed old CES address"
+
+mmces address add --ces-node $(hostname) --ces-ip $newCesIP
+echo "Added new CES address"
+
+mmhealth node show
