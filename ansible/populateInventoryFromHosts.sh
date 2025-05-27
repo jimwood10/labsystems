@@ -5,3 +5,4 @@ grep fyre /etc/hosts | awk '{print $2}' >> inventory.txt
 
 echo "Finished"
 cat inventory.txt
+ansible all -i inventory.txt -m ping
