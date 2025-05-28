@@ -89,11 +89,11 @@ mmces address add --ces-node rh95.localdomain --ces-ip 172.22.119.99  (make sure
 
 Install all ganesha and samba RPMs
 dnf install cifs-utils
-/usr/lpp/mmfs/bin/smbpasswd -a root
 
 mmuserauth service create --data-access-method file --type userdefined
 mmces service enable NFS
 mmces service enable SMB
+/usr/lpp/mmfs/bin/smbpasswd -a root
 
 mkdir /gpfs/fs1/smbExport
 mkdir /gpfs/fs1/nfsExport
