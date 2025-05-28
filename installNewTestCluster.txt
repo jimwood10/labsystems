@@ -83,6 +83,7 @@ Or use the install kit. eg
 Install CES
 ===========
 
+mmchconfig cesSharedRoot=/gpfs/cesSharedRoot
 mmchnode --ces-enable -N rh95.localdomain
 mmces address add --ces-node rh95.localdomain --ces-ip 172.22.119.99  (make sure address is in /etc/hosts)
 
