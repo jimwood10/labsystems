@@ -101,6 +101,7 @@ mkdir /gpfs/fs1/nfsExport
 mkdir /smbMount
 mkdir /nfsMount
 
+mmchfs fs1 -k nfs4
 mmsmb export add smbexport /gpfs/fs1/smbExport
 mmnfs export add /gpfs/fs1/nfsExport -c "*(Access_Type=RW)"
 
