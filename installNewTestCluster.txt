@@ -52,9 +52,14 @@ systemctl status pmcollector
 systemctl status pmsensors
 
 10. GUI
-/usr/lpp/mmfs/gui/cli/mkuser admin -g SecurityAdmin,Administrator
+systemctl stop firewalld
+systemctl disable firewalld
+
 systemctl status gpfsgui
+/usr/lpp/mmfs/gui/cli/mkuser admin -g SecurityAdmin,Administrator
+
 /usr/lpp/mmfs/gui/cli/runtask <task> -debug
+
    
 Tear down
 =========
