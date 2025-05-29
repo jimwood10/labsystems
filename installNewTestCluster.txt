@@ -50,6 +50,10 @@ mmchnode --perfmon -N rh95.local
 mmperfmon config generate --collectors rh95.local
 systemctl status pmcollector
 systemctl status pmsensors
+
+10. GUI
+/usr/lpp/mmfs/gui/cli/mkuser admin -g SecurityAdmin,Administrator
+systemctl status gpfsgui
    
 Tear down
 =========
