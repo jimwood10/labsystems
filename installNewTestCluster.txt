@@ -58,6 +58,7 @@ systemctl disable firewalld
 systemctl status gpfsgui
 /usr/lpp/mmfs/gui/cli/mkuser admin -g SecurityAdmin,Administrator
 
+/usr/lpp/mmfs/gui/cli/lstasklog
 /usr/lpp/mmfs/gui/cli/runtask <task> -debug
 
    
