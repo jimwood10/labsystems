@@ -44,6 +44,12 @@ mmount all -a
 -----------------------------------------------------------------------------------------
    1   jimw-node-mgr.fyre.ibm.com  10.51.13.149  jimw-node-mgr.fyre.ibm.com  quorum-manager-perfmon
    2   jimw-node.fyre.ibm.com      10.51.23.145  jimw-node.fyre.ibm.com      quorum-manager-perfmon
+
+9. Perfmon
+mmchnode --perfmon -N rh95.local
+mmperfmon config generate --collectors rh95.local
+systemctl status pmcollector
+systemctl status pmsensors
    
 Tear down
 =========
