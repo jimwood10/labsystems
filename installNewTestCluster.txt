@@ -60,6 +60,7 @@ systemctl status gpfsgui
 
 /usr/lpp/mmfs/gui/cli/lstasklog
 /usr/lpp/mmfs/gui/cli/runtask <task> -debug
+mmsysmoncontrol restart
 
 11. Node OS Reinstalled
 Make sure /etc/hosts and ssh keys are all OK.
