@@ -118,6 +118,9 @@ mmces service enable NFS
 mmces service enable SMB
 /usr/lpp/mmfs/bin/smbpasswd -a root
 
+list smb users
+pdbedit -L -v -L
+
 mkdir /gpfs/fs1/smbExport
 mkdir /gpfs/fs1/nfsExport
 
