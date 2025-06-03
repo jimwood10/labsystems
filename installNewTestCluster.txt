@@ -134,5 +134,9 @@ mmnfs export add /gpfs/fs1/nfsExport -c "*(Access_Type=RW)"
 mount 172.22.119.99://gpfs/fs1/nfsExport /nfsMount
 mount -t cifs //172.22.119.99/smbexport /smbMount
 
+To mount on Windows
+From PowerShell
+net use y: \\172.28.81.99\smbexport
+
 
 
