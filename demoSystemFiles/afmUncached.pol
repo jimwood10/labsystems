@@ -1,0 +1,25 @@
+/*************************************************************/
+/* to run this policy: */
+/* 1: change fsetName to actual fileset name */
+/* 2: mmapplypolicy fsname -P policy -f ./gpfs -I defer */
+/* 3: result is written to ./gpfs.list.uncached */
+/*************************************************************/
+
+/* define exclude list */
+define(  exclude_list,
+  (PATH_NAME LIKE '%/.SpaceMan/%' OR
+   PATH_NAME LIKE '%/.ltfsee/%' OR
+   PATH_NAME LIKE '%/.mmSharedTmpDir/%' OR
+   PATH_NAME LIKE '%/.snapshots/%' OR
+   NAME LIKE '.mmbackupShadow%' OR
+   NAME LIKE 'mmbackup%')
+)
+
+/* define macros */
+define( is_uncached, ( NOT REGEX(misc_attributes,'[u]') ) )
+define( is_dirty, ( REGEX(misc_attributes,'[P]') AND
+REGEX(misc_attributes,'[w|v|x|y|j|F]') ) )
+
+/* external list rule */
+RULE EXTERNAL LIST 'uncached' EXEC ''
+RULE 'listUncached' LIST 'uncached' FOR FILESET ('fsetName') WHERE NOT (exclude_list) AND  (is_uncached) AND (is_dirty)
