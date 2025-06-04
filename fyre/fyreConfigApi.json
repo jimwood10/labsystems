@@ -1,0 +1,54 @@
+{
+    "fyre": {
+        "creds": {
+            "username": "jim_wood",
+            "api_key":"yfTnTRA8c3Fz1AYyR7Tw5hmPsalDHNNYfGMvuLW7C",
+            "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa5oQD5Km1mfhYRc/CClni4mJ/KzcKO6MqV0UDEZsjbMPDlkhOhJwEPM/thqhbWqjQmL3kOZSXWwU9G0pAP4UFA0IJu3TMW1B3etk4dpn40i9UfutVL2TPQBwT0pFvANXeiAaI2LqwD3K5B/SnrPQIM5EMZlbFXXc3ss8avwL2ia6c6/4acKubAy31TD4y2f+X56AVcw/tWWeoKZH89l8iwrEcczpnfM8otarBcOis2Km4Z+DDpcpF3WySSqHCUBgxRUHCmP3I98G8XB54GiROUbmx5fDrL5hw9T1U9WYdE80fSiX00HSGAbg/Dk2C6qvVYgndmS/m0fnaLzQhd5dCVwI5y82Vyojo8oAXqLTwJPkiUYzHPFioywSHcYjkZfs+YfBk4diIqxdNfdxc7G6UhIaS3VLMmopCu6xWcxTrGf3LUJw/qgdropQAjisBBfRUdWRHRqUtpc+I+2VPR6QSW9M5d7NBU86kR7oDf0ps2uEKkdnFphW1awxTl+FuGgc= gb93480@scaleservice1"
+        }
+    },
+    "cluster_prefix":"jimw",
+    "clusterconfig" : {
+        "instance_type" : "virtual_server",
+        "platform" : "x",
+        "user_comment" : "Jim's test cluster"
+    },
+    "jimw" : [
+        {
+            "name" : "node1",
+            "cpu" : 2,
+            "memory" : 4,
+            "os" : "Redhat 9.4",
+            "publicvlan" :"y",
+            "privatevlan" : "y",
+            "additional_disks" : [{
+                "size" : 200
+            },{
+                "size" : 200
+            }]
+        },{
+            "name" : "node2",
+            "cpu" : 2,
+            "memory" : 4,
+            "os" : "Redhat 9.4",
+            "publicvlan" :"y",
+            "privatevlan" : "y",
+            "additional_disks" : [{
+                "size" : 200
+                        },{
+                "size" : 200
+            }]
+        },{
+            "name" : "node3",
+            "cpu" : 2,
+            "memory" : 4,
+            "os" : "Redhat 9.4",
+            "publicvlan" :"n",
+            "privatevlan" : "y",
+            "additional_disks" : [{
+                "size" : 200
+            },{
+                "size" : 200
+            }]
+        }
+    ]
+}
