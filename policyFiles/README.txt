@@ -11,7 +11,7 @@ root                     Linked    /ibm/fs1
 testIam                  Linked    /ibm/fs1/testIam
 .audit                   Linked    /ibm/fs1/.audit
 
-The policy scripts, list-immutable.txt and makeimmutablelistpolicy.pol,  refer to fileset "worm". 
+The policy scripts, list-immutable.pol and makeimmutablelistpolicy.pol,  refer to fileset "worm". 
 Change this to your actual fileset. Eg
 sed -i 's/worm/testIam/g' makeimmutablelistpolicy.pol
 
@@ -19,7 +19,7 @@ Also edit makeimmutablelistpolicy to show the correct path to makeimmutable.sh
 
 Run policies
 ============
-makeimmutablelistpolicy.txt is set to make mp3 and pdf files immutable
+makeimmutablelistpolicy.pol is set to make mp3 and pdf files immutable
 Either populate the fileset/path with some files that will be matched, or change the select clauses.
 
 Check the listing of list-immutable.pol  with:
