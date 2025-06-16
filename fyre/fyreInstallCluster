@@ -11,5 +11,5 @@ read -p "Are you sure? (\"y\" to continue)" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  curl -X POST -k -u jim_wood:yfTnTRA8c3Fz1AYyR7Tw5hmPsalDHNNYfGMvuLW7C 'https://api.fyre.ibm.com/rest/v1/?operation=build' --data '@./fyreConfigApi.json' 
+  curl -X POST -k -u jim_wood:d4r12XktoUV2XIrup8BOZvzWMensfWpjIg5RvGJZG 'https://api.fyre.ibm.com/rest/v1/?operation=build' --data '@./fyreConfigApi.json' 
 fi
