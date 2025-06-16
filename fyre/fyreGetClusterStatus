@@ -4,4 +4,4 @@ echo "What is the request number?"
 
 read REQUEST
 
-curl -X GET -k -u jim_wood:yfTnTRA8c3Fz1AYyR7Tw5hmPsalDHNNYfGMvuLW7C "https://api.fyre.ibm.com/rest/v1/?operation=query&request=showrequests&request_id=$REQUEST"
+curl -X GET -k -u jim_wood:d4r12XktoUV2XIrup8BOZvzWMensfWpjIg5RvGJZG "https://api.fyre.ibm.com/rest/v1/?operation=query&request=showrequests&request_id=$REQUEST"
