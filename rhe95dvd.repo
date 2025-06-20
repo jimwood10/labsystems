@@ -1,0 +1,17 @@
+# Place this this file in /etc/yum.repos.d
+
+[BaseOS]
+name=BaseOS Packages Red Hat Enterprise Linux 9
+metadata_expire=-1
+gpgcheck=1
+enabled=1
+baseurl=file:///mnt/BaseOS/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+[AppStream]
+name=AppStream Packages Red Hat Enterprise Linux 9
+metadata_expire=-1
+gpgcheck=1
+enabled=1
+baseurl=file:///mnt/AppStream/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
