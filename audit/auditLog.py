@@ -3,7 +3,7 @@ import json
 import sys
 
 # open the audit log file
-fName="/gpfs/fs1/.audit_log/SpectrumScale_150_13023685172280762785_1750411614_FSYS_fs1_audit/2025/06/20/auditLogFile_alloc-node1_2025-06-20_10:33:09"
+fName="/gpfs/fs1/.audit_log/SpectrumScale_150_13023685172280762785_1750413175_FSYS_fs1_audit/auditLogFile.latest_alloc-node1"
 try:
   fn = open(fName, 'r')
 except IOError:
