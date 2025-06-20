@@ -1,0 +1,32 @@
+Audit Hints
+===========
+mmaudit fs1 enable
+ mmaudit fs1 list --events
+Audit     Device  Audit       Event
+Device    Minor   Gen         Types
+-----------------------------------------------------------------------------------------
+fs1       150     1750413175  ACCESS_DENIED,ACLCHANGE,CLOSE,CLOSEWRITE,CREATE,GPFSATTRCHANGE,OPEN,RENAME,RMDIR,UNLINK,XATTRCHANGE
+
+ ./auditLog.py | head
+
+Event      Event-time                 Owner  User   Path
+---------------------------------------------------------------------------------------------
+CLOSE      2025-06-20_10:33:04.296+0100 0      0      /gpfs/fs1/
+CLOSE      2025-06-20_10:33:09.983+0100 0      0      /gpfs/fs1/
+OPEN       2025-06-20_10:33:09.982+0100 0      0      /gpfs/fs1/
+CLOSE      2025-06-20_10:36:51.465+0100 0      0      /gpfs/fs1/
+OPEN       2025-06-20_10:36:51.462+0100 0      0      /gpfs/fs1/
+CLOSE      2025-06-20_10:36:51.464+0100 0      0      /gpfs/fs1/
+OPEN       2025-06-20_10:36:51.464+0100 0      0      /gpfs/fs1/
+
+# ./auditLog.py | tail
+OPEN       2025-06-20_10:47:33.417+0100 0      0      /gpfs/fs1/
+CLOSE      2025-06-20_10:47:33.417+0100 0      0      /gpfs/fs1/
+OPEN       2025-06-20_10:47:40.968+0100 1000   0      /gpfs/fs1/jimwTestAudit
+CLOSE      2025-06-20_10:47:40.968+0100 1000   0      /gpfs/fs1/jimwTestAudit
+OPEN       2025-06-20_10:48:25.625+0100 0      1000   /gpfs/fs1/testAuditEvent
+CLOSE      2025-06-20_10:48:25.626+0100 0      1000   /gpfs/fs1/testAuditEvent
+OPEN       2025-06-20_10:50:29.465+0100 1000   0      /gpfs/fs1/jimwTestAudit
+CLOSE      2025-06-20_10:50:29.466+0100 1000   0      /gpfs/fs1/jimwTestAudit
+OPEN       2025-06-20_10:50:55.665+0100 1000   0      /gpfs/fs1/jimwTestAudit
+CLOSE      2025-06-20_10:50:55.666+0100 1000   0      /gpfs/fs1/jimwTestAudit
