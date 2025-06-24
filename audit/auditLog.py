@@ -10,7 +10,7 @@ except IOError:
   print ('ERROR: Opening file', fName, '\n')
   sys.exit(1)
 
-# read the file line by line and display the relevant events: Event-type, event-time, file-owner, file-path
+# read the file line by line and display the relevant events: Event-type, event-time, file-owner, file-user file-path
 i = 0
 for line in fn:
   obj = json.loads(line)
