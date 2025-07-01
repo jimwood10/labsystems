@@ -10,7 +10,7 @@
     "clusterconfig" : {
         "instance_type" : "virtual_server",
         "platform" : "x",
-        "user_comment" : "Jim's test cluster"
+        "user_comment" : "JimW test cluster"
     },
     "jimw" : [
         {
