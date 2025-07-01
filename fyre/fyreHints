@@ -14,6 +14,18 @@ subscription-manager release --unset
 yum clean all
 subscription-manager release --show
 
+Roll back Kernel
+================
+grubby --default-kernel
+
+grubby --info=ALL | grep title
+title="Red Hat Enterprise Linux (5.14.0-570.24.1.el9_6.x86_64) 9.4 (Plow)"   <=== 0
+title="Red Hat Enterprise Linux (5.14.0-427.42.1.el9_4.x86_64) 9.4 (Plow)"   <=== 1
+title="Red Hat Enterprise Linux (5.14.0-427.28.1.el9_4.x86_64) 9.4 (Plow)"   <=== 2
+title="Red Hat Enterprise Linux (0-rescue-29118cfd735a42e58abf0acb163984eb) 9.4 (Plow)"   <=== 3
+
+grub2-set-default 1
+
 Update only security (no bug fixes and enhancements)
 ====================
 yum update --security
