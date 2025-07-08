@@ -1,14 +1,20 @@
 #!/bin/bash
+
+##### variables #####
 gpfsBase=/gpfs/fs1
+numberOfDir=10
+##### variables #####
+
 cd $gpfsBase
 
-for i in {1..5}
+for i in $(seq 1 $numberOfDir)
 do
-	mkdir $i
-		if [ $? -eq 0 ]
-			then
-		echo "Script failed"
-		exit
-		fi
-	cd $i
+        mkdir $i
+                if [ $? -ne 0 ]
+                        then
+                echo "Script failed"
+                exit
+                fi
+        cd $i
 done
+
