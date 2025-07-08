@@ -1,7 +1,10 @@
 #!/bin/bash
+
+##### variables #####
 gpfsBase=/gpfs/fs1
 nameLength=20
 numberOfFiles=10
+##### variables #####
 
 cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $nameLength | head -n $numberOfFiles > /tmp/random.txt
 while read LINE
@@ -13,3 +16,4 @@ do
                 exit
                 fi
 done < /tmp/random.txt
+
