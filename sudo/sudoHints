@@ -3,23 +3,21 @@ sudo hints
 
 https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=login-configuring-sudo
 
-Add user/groupadd
-=================
+Add user/groupadd (on all nodes)
+================================
 create user name gpfsadmin and the group gpfs
 useradd gpfsadmin
 groupadd gpfs
 usermod -G gpfs gpfsadmin
 
-Setup passwordless login from root to gpfsadmin
-===============================================
-To do this, eg :
-
+Setup passwordless login from root (on admin node) to gpfsadmin (on all nodes)
+==============================================================================
 root@jimw-node1 ansible]# ssh-copy-id gpfsadmin@jimw-node1.fyre.ibm.com
 
 [root@jimw-node1 ansible]# ssh jimw-node1.fyre.ibm.com -l gpfsadmin /bin/whoami
 gpfsadmin
 
-Use visudo to add this
+Use visudo to add this:
 ======================
 # Preserve GPFS environment variables:
 Defaults env_keep += "MMMODE environmentType GPFS_rshPath GPFS_rcpPath mmScriptTrace GPFSCMDPORTRANGE GPFS_CIM_MSG_FORMAT" 
@@ -49,8 +47,6 @@ Change cluster
 ==============
 mmchcluster --use-sudo-wrapper
 
-Test again
-==========
 Note: For security reasons, the mmdsh command is limited to the list of allowable remote commands when sudo wrappers are implemented as per the sudoers file.
 
 
