@@ -30,3 +30,43 @@ OPEN       2025-06-20_10:50:29.465+0100 1000   0      /gpfs/fs1/jimwTestAudit
 CLOSE      2025-06-20_10:50:29.466+0100 1000   0      /gpfs/fs1/jimwTestAudit
 OPEN       2025-06-20_10:50:55.665+0100 1000   0      /gpfs/fs1/jimwTestAudit
 CLOSE      2025-06-20_10:50:55.666+0100 1000   0      /gpfs/fs1/jimwTestAudit
+
+Can also use jq to check the file, eg
+
+jq '.' auditLogFile.latest_rh95
+<snip>
+{
+  "LWE_JSON": "0.0.6",
+  "path": "/gpfs/fs1/",
+  "clusterName": "rh95.localdomain",
+  "nodeName": "rh95",
+  "nfsClientIp": "",
+  "fsName": "fs1",
+  "event": "CLOSE",
+  "inode": "3",
+  "linkCount": "7",
+  "openFlags": "1",
+  "poolName": "system",
+  "fileSize": "262144",
+  "ownerUserId": "0",
+  "ownerGroupId": "0",
+  "atime": "2025-07-16_14:33:03.882+0100",
+  "ctime": "2025-07-16_14:33:02.965+0100",
+  "mtime": "2025-07-16_14:33:02.965+0100",
+  "eventTime": "2025-07-17_15:55:29.811+0100",
+  "clientUserId": "0",
+  "clientGroupId": "0",
+  "accessMode": null,
+  "processId": "3238361",
+  "bytesRead": "0",
+  "bytesWritten": "0",
+  "minReadOffset": "9223372036854775807",
+  "maxReadOffset": "0",
+  "minWriteOffset": "9223372036854775807",
+  "maxWriteOffset": "0",
+  "permissions": "200040777",
+  "acls": null,
+  "xattrs": null,
+  "subEvent": "NONE"
+}
+
