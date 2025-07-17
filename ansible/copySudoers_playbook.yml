@@ -1,0 +1,11 @@
+- hosts: all
+  tasks:
+  - name: Copy a new "hosts" file into place, backing up the original if it differs from the copied version
+    copy:
+      src: /etc/sudoers
+      dest: /etc/sudoers
+      owner: root
+      group: root
+      mode: '0440'
+      backup: yes
+    become: true
