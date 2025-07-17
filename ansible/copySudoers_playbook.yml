@@ -1,6 +1,6 @@
 - hosts: all
   tasks:
-  - name: Copy a new "hosts" file into place, backing up the original if it differs from the copied version
+  - name: Copy a new "sudoers" file into place, backing up the original if it differs from the copied version
     copy:
       src: /etc/sudoers
       dest: /etc/sudoers
