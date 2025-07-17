@@ -1,0 +1,58 @@
+sudo hints
+==========
+
+https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=login-configuring-sudo
+
+Add user/groupadd
+=================
+create user name gpfsadmin and the group gpfs
+useradd gpfsadmin
+groupadd gpfs
+usermod -G gpfs gpfsadmin
+
+Setup passwordless login from root to gpfsadmin
+===============================================
+To do this, eg :
+
+root@jimw-node1 ansible]# ssh-copy-id gpfsadmin@jimw-node1.fyre.ibm.com
+
+[root@jimw-node1 ansible]# ssh jimw-node1.fyre.ibm.com -l gpfsadmin /bin/whoami
+gpfsadmin
+
+Use visudo to add this
+======================
+# Preserve GPFS environment variables:
+Defaults env_keep += "MMMODE environmentType GPFS_rshPath GPFS_rcpPath mmScriptTrace GPFSCMDPORTRANGE GPFS_CIM_MSG_FORMAT" 
+
+# Allow members of the gpfs group to run all commands but only selected commands without a password:
+%gpfs ALL=(ALL) PASSWD: ALL, NOPASSWD: /usr/lpp/mmfs/bin/mmremote 
+
+# Disable requiretty for group gpfs:
+Defaults:%gpfs !requiretty
+
+***************************************
+* Then copy /etc/sudoers to all nodes *
+***************************************
+
+Test
+====
+Run the following command as the gpfsadmin user
+
+[gpfsadmin@jimw-node1 ~]$ sudo /usr/lpp/mmfs/bin/mmcommon test sshwrap jimw-node1.fyre.ibm.com
+mmcommon test sshwrap: Command successfully completed
+
+[gpfsadmin@jimw-node1 ~]$ sudo /usr/lpp/mmfs/bin/mmcommon test scpwrap jimw-node2.fyre.ibm.com
+mmcommon test scpwrap: Command successfully completed
+
+
+Change cluster
+==============
+mmchcluster --use-sudo-wrapper
+
+Test again
+==========
+Note: For security reasons, the mmdsh command is limited to the list of allowable remote commands when sudo wrappers are implemented as per the sudoers file.
+
+
+
+
