@@ -1,6 +1,6 @@
 # Update Hosts
 oldCesIP=$(grep ces /etc/hosts | awk '{print $1}')
-newCesIP=$(grep $(hostname) /etc/hosts | awk '{print $1}' | awk -F. '$NF="99"' OFS=".")
+newCesIP=$(grep $(hostname) /etc/hosts | grep -v ces | awk '{print $1}' | awk -F. '$NF="99"' OFS=".")
 sed -i "s/$oldCesIP/$newCesIP/" /etc/hosts
 echo "/etc/hosts updated with new IP address"
 
