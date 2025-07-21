@@ -6,6 +6,6 @@ sed -i "s/$oldIP/$newIP/" /etc/hosts
 
 echo "$(hostname -s) --daemon-interface=$(hostname) --admin-interface=$(hostname)" > nodeIpUpdateFile
 
-mmshutdown && sleep 20
+mmshutdown && sleep 10
 mmchnode --spec-file nodeIpUpdateFile --force
-mmstartup && sleep 20 && mmgetstate
+mmstartup && mmount all -a && mmgetstate
