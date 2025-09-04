@@ -8,4 +8,5 @@ echo "$(hostname -s) --daemon-interface=$(hostname) --admin-interface=$(hostname
 
 mmshutdown && sleep 10
 mmchnode --spec-file nodeIpUpdateFile --force
-mmstartup && mmmount all -a && mmgetstate
+mmstartup && sleep 10
+mmmount all -a && mmgetstate
