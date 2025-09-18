@@ -22,5 +22,9 @@ while true; do
         sleep 5  # Optional: wait before retrying
     fi
 done
-systemctl start gpfsgui
+
 mmmount all -a && mmgetstate && mmlsmount all
+sleep 5
+echo "Starting GUI"
+systemctl start gpfsgui
+
