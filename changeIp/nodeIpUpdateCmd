@@ -8,5 +8,19 @@ echo "$(hostname -s) --daemon-interface=$(hostname) --admin-interface=$(hostname
 
 mmshutdown && sleep 10
 mmchnode --spec-file nodeIpUpdateFile --force
-mmstartup && sleep 10
-mmmount all -a && mmgetstate
+mmstartup 
+while true; do
+   mmgetstate  | grep -i active
+    rc=$?
+
+    if [ $rc -eq 0 ]; then
+        echo "mmfsd active"
+        sleep 5
+        break
+    else
+        echo "mmfsd not ready"
+        sleep 5  # Optional: wait before retrying
+    fi
+done
+
+mmmount all -a && mmgetstate && mmlsmount all
