@@ -20,4 +20,5 @@ echo "Removed old CES address"
 mmces address add --ces-node $(hostname) --ces-ip $newCesIP
 echo "Added new CES address"
 
+echo "mmhealth node show"
 mmhealth node show
