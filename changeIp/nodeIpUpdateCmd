@@ -1,13 +1,16 @@
 # update /etc/hosts with new ip address
-
 oldIP=$(grep $(hostname) /etc/hosts | grep -v ces | awk '{print $1}')
 newIP=$(hostname -I | awk '{print $1}')
 sed -i "s/$oldIP/$newIP/" /etc/hosts
 
+# populate spec-file
 echo "$(hostname -s) --daemon-interface=$(hostname) --admin-interface=$(hostname)" > nodeIpUpdateFile
 
+# shutdown mmfs and mmchnode
 mmshutdown && sleep 10
 mmchnode --spec-file nodeIpUpdateFile --force
+
+# startup, what until ready, then mount FS and start GUI
 mmstartup 
 while true; do
    mmgetstate  | grep -i active
