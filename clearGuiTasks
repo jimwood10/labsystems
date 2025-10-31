@@ -1,0 +1,6 @@
+# clear gui_refresh_task_failed
+for i in `/usr/lpp/mmfs/gui/cli/lstask | grep -v SUCCESS | awk '{print $1}' | grep -v Name`
+do
+  /usr/lpp/mmfs/gui/cli/runtask $i --debug
+done
+/usr/lpp/mmfs/gui/cli/lstask
