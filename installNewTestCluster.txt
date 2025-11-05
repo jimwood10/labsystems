@@ -93,6 +93,8 @@ mmdelnode -a
 Or use the install kit. eg
 ==========================
 
+cd /usr/lpp/mmfs/5.2.3.4/ansible-toolkit
+
 ./spectrumscale node add -q -m -a -n -g jimw1  # define nodes in cluster
 ./spectrumscale setup -s 10.51.11.223 # define inststaller node
 ./spectrumscale callhome disable
@@ -137,6 +139,7 @@ mount -t cifs //172.22.119.99/smbexport /smbMount
 To mount on Windows
 From PowerShell
 net use y: \\172.28.81.99\smbexport
+
 
 
 
