@@ -1,0 +1,5 @@
+- hosts: all
+  tasks:
+    - name: update .bashrc to include gpfs command path
+      shell: sed -i 's/PATH="$HOME\/.local\/bin:$HOME\/bin:$PATH/PATH="$HOME\/.local\/bin:$HOME\/bin:$PATH:\/usr\/lpp\/mmfs\/bin/' /root/.bashrc
+    - debug: msg="Updated .bashrc"
