@@ -101,7 +101,7 @@ cd /usr/lpp/mmfs/5.2.3.4/ansible-toolkit
 ./spectrumscale install -pr
 ./spectrumscale install
 
-./spectrumscale nsd add  -p jimw1-node-mgr.fyre.ibm.com /dev/vdb /dev/vdc /dev/vdd /dev/vde -fs fs1 #  add disks, create FS
+./spectrumscale nsd add  -p jimw-node1.fyre.ibm.com /dev/vdb /dev/vdc -fs fs1 -fg 1 #  add disks with FG, create FS 
 ./spectrumscale install -pr
 ./spectrumscale install
 
@@ -139,6 +139,7 @@ mount -t cifs //172.22.119.99/smbexport /smbMount
 To mount on Windows
 From PowerShell
 net use y: \\172.28.81.99\smbexport
+
 
 
 
