@@ -35,7 +35,7 @@ mmcrnsd -F StanzaFile.new.nsd
 
 
 7. Create FS
-mmcrfs fs1 -F StanzaFile.new.nsd
+mmcrfs fs1 -F StanzaFile.new.nsd # consider mmchfs fs1 -m 2 -r 2
 
 8. Mount FS
 mmount all -a
@@ -105,6 +105,8 @@ cd /usr/lpp/mmfs/5.2.3.4/ansible-toolkit
 ./spectrumscale install -pr
 ./spectrumscale install
 
+mmchfs fs1 -m 2 -r 2
+
 Install CES
 ===========
 
@@ -139,6 +141,7 @@ mount -t cifs //172.22.119.99/smbexport /smbMount
 To mount on Windows
 From PowerShell
 net use y: \\172.28.81.99\smbexport
+
 
 
 
